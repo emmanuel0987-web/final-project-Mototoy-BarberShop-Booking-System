@@ -21,24 +21,24 @@ Mototoy Barbershop Booking System streamlines appointment scheduling, reduces wa
 
 ## 👥 Group Members and Roles
 
-| Name                  | Role                  |
-|-----------------------|-----------------------|
-| James Noel Rinion     | Backend Developer     | 
-| Kehn Rebadavia        | Project Manager       |
-| Robinson Quinday      | Database Manager      |
-| Jastin Pecundo        | Frontend Developer    | 
-| Kurt Recto            | Documentation Officer |
-| John Emanuel Ordan    | GitHub Manager        |
+| Name                  | Role                  | Class Section |
+|-----------------------|-----------------------|---------------|
+| James Noel Rinion     | Backend Developer     | BSIT-2B       |
+| Kehn Rebadavia        | Project Manager       | BSIT-2B       |
+| Robinson Quinday      | Database Manager      | BSIT-2B       |
+| Jastin Pecundo        | Frontend Developer    | BSIT-2B       |
+| Kurt Recto            | Documentation Officer | BSIT-2B       |
+| John Emanuel Ordan    | GitHub Manager        | BSIT-2B       |
 
 ## 📊 Project Development Progress
 
 | Phase                         | Progress |
 |-------------------------------|----------|
 | Planning and System Design    | 100%     |
-| UI/UX Wireframing             | 90%      |
+| UI/UX Wireframing             | 20%      |
 | Frontend Development          | 80%      |
 | Backend Development           | 20%      |
-| Database Design and Integration | 200%    |
+| Database Design and Integration | 20%    |
 | Testing and Debugging         | 20%      |
 | Final Review and Deployment   | 0%       |
 
