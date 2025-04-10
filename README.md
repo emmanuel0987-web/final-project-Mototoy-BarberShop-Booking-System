@@ -38,7 +38,7 @@ Mototoy Barbershop Booking System streamlines appointment scheduling, reduces wa
 | UI/UX Wireframing             | 20%      |
 | Frontend Development          | 80%      |
 | Backend Development           | 20%      |
-| Database Design and Integration | 20%    |
+| Database Design and Integration | 70%    |
 | Testing and Debugging         | 20%      |
 | Final Review and Deployment   | 0%       |
 
