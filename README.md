@@ -8,16 +8,15 @@ Mototoy Barbershop Booking System streamlines appointment scheduling, reduces wa
 
 ## 🧑‍💻 Planned Languages and Tools
 - **Frontend**: HTML, CSS, JavaScript
-- **Backend**: PHP
-- **Database**: MySQL
+- **Backend**: MONGODB, EXPRESS MONGOOSE, NODE.JS
+- **Database**: MONGODB, EXPRESS MONGOOSE, NODE.JS
 - **Version Control**: Git & GitHub
 
 ## 🌟 Features
 - User registration and login
 - Appointment scheduling and cancellation
-- Real-time availability of barbers
 - Admin dashboard for shop management
-- Notification system for bookings and changes
+
 
 ## 👥 Group Members and Roles
 
