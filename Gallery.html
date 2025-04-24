@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - MotoToy Barbershop</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .gallery-carousel {
+            max-width: 800px;
+            max-height: 500px;
+            margin: auto;
+        }
+        .gallery-carousel img {
+            max-height: 500px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+
+  <!-- Bootstrap Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand d-flex align-items-center" href="#">
+        <img src="logo.png" alt="MotoToy Barbershop Logo" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;">
+        MotoToy Barbershop
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="Homepage.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="booking.html">Book Now</a></li>
+          <li class="nav-item"><a class="nav-link" href="Gallery.html">Gallery</a></li>
+          <li class="nav-item"><a class="nav-link" href="Contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="About.html">About</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div style="padding-top: 100px;">
+    <header class="text-center mb-4">
+      <h1>Our Gallery</h1>
+    </header>
+
+    <!-- Gallery Carousel -->
+    <section id="gallery">
+        <h2 class="text-center mt-3">Haircut Results</h2>
+        <div id="galleryCarousel" class="carousel slide gallery-carousel" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="1.jpg" class="d-block w-100" alt="Haircut 1">
+                </div>
+                <div class="carousel-item">
+                    <img src="2.jpg" class="d-block w-100" alt="Haircut 2">
+                </div>
+                <div class="carousel-item">
+                    <img src="3.jpg" class="d-block w-100" alt="Haircut 3">
+                </div>
+                <div class="carousel-item">
+                    <img src="4.jpg" class="d-block w-100" alt="Haircut 4">
+                </div>
+                <div class="carousel-item">
+                    <img src="5.jpg" class="d-block w-100" alt="Haircut 5">
+                </div>
+                <div class="carousel-item">
+                    <img src="6.jpg" class="d-block w-100" alt="Haircut 6">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#galleryCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#galleryCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </button>
+        </div>
+    </section>
+  </div>
+
+  <footer class="text-center mt-4 bg-dark text-white py-3">
+    <p>&copy; 2025 MotoToy Barbershop. All rights reserved.</p>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+
+</body>
+</html>

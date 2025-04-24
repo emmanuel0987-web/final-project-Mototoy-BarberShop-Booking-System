@@ -1,0 +1,188 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+header {
+    background-color: white;
+    color: rgb(0, 0, 0);
+    padding: 15px 0;
+    text-align: center;
+}
+
+header h1 {
+    margin-bottom: 10px;
+}
+
+/* Navigation */
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.nav-link:hover {
+    text-decoration: underline;
+}
+
+/* Section Styling */
+section {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    width: 90%;
+    max-width: 1100px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Styles (Contact/Booking) */
+form {
+    max-width: 500px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input,
+select,
+textarea,
+button {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+button {
+    background-color: #333;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+/* Gallery with Animation */
+.gallery-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.gallery-item {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.6s ease;
+    max-width: 300px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.gallery-item img {
+    width: 100%;
+    display: block;
+    border-radius: 10px;
+}
+
+.gallery-item.show {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Footer */
+footer {
+    background-color: #212529;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: auto;
+}
+
+/* Cover Image for Homepage */
+.cover-container {
+    width: 100%;
+    height: 500px;
+    overflow: hidden;
+    position: relative;
+}
+
+.cover-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Carousel Size Control */
+.carousel-inner img {
+    height: 400px;
+    object-fit: cover;
+}
+
+.carousel-caption {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+/* Contact Info List */
+ul.list-unstyled li {
+    margin-bottom: 5px;
+}
+
+/* Responsive Logo */
+header img {
+    max-width: 150px;
+    border-radius: 50%;
+}
+
+/* Hover effect for service cards */
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card-img-top {
+    transition: transform 0.3s ease;
+    border-bottom: 1px solid #ddd;
+}
+
+.card:hover .card-img-top {
+    transform: scale(1.1);
+}
+
+
+
