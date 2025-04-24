@@ -28,7 +28,18 @@ app.get('*', (req, res) => {
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
     app.listen(process.env.PORT, () =>
-      console.log(`🚀 Server running at http://localhost:3001`)
+      console.log(`🚀 Server running at http://localhost:const PORT = process.env.PORT || 3001;
+
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => {
+    app.listen(PORT, () =>
+      console.log(`🚀 Server running at http://localhost:${PORT}`)
+    );
+  })
+  .catch(err => {
+    console.error('MongoDB connection error:', err);
+  });
+`)
     );
   })
   .catch(err => {
