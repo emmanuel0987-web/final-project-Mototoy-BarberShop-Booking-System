@@ -45,30 +45,6 @@
       <button onclick="logoutAdmin()" class="btn btn-danger">Logout</button>
     </div>
 
-    <!-- Add New Booking Form -->
-    <div class="mt-5">
-      <h4>Add New Booking</h4>
-      <form id="bookingForm">
-        <div class="mb-3">
-          <label for="name" class="form-label">Customer Name</label>
-          <input type="text" class="form-control" id="name" required>
-        </div>
-        <div class="mb-3">
-          <label for="service" class="form-label">Service</label>
-          <input type="text" class="form-control" id="service" required>
-        </div>
-        <div class="mb-3">
-          <label for="date" class="form-label">Date</label>
-          <input type="date" class="form-control" id="date" required>
-        </div>
-        <div class="mb-3">
-          <label for="timeSlot" class="form-label">Time Slot</label>
-          <input type="time" class="form-control" id="timeSlot" required>
-        </div>
-        <button type="submit" class="btn btn-success">Add Booking</button>
-      </form>
-    </div>
-
     <!-- Booking Table -->
     <div id="bookingsSection" class="mt-5">
       <h4>Customer Bookings</h4>
@@ -140,36 +116,6 @@
         const tableBody = document.querySelector('#bookingsTable tbody');
         tableBody.innerHTML = `<tr><td colspan="4" class="text-center">Failed to load booking data. Please try again later.</td></tr>`;
       });
-
-    // Handle form submission to add new booking
-    const bookingForm = document.getElementById('bookingForm');
-    bookingForm.addEventListener('submit', function(event) {
-      event.preventDefault();
-
-      const name = document.getElementById('name').value;
-      const service = document.getElementById('service').value;
-      const date = document.getElementById('date').value;
-      const timeSlot = document.getElementById('timeSlot').value;
-
-      fetch('http://localhost:3001/appointments', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ name, service, date, timeSlot })
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Booking added:', data);
-        alert('Booking added successfully!');
-        // Reload the bookings table
-        fetchBookings();
-      })
-      .catch(error => {
-        console.error('Error adding booking:', error);
-        alert('Failed to add booking. Please try again.');
-      });
-    });
 
     function fetchBookings() {
       fetch('http://localhost:3001/appointments')
