@@ -4,20 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Dashboard - MotoToy Barbershop</title>
+
+  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
+  <!-- Navbar -->
   <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
     <div class="container-fluid">
       <a class="navbar-brand d-flex align-items-center" href="Homepage.html">
-        <img src="logo.png" alt="Logo" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;">
+        <img src="logo.png" alt="MotoToy Barbershop Logo" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;">
         MotoToy Barbershop
       </a>
+
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item"><a class="nav-link" href="Homepage.html">Home</a></li>
@@ -31,29 +36,33 @@
     </div>
   </nav>
 
+  <!-- Admin Dashboard Content -->
   <div class="container" style="padding-top: 100px;">
     <h2 class="text-center mb-4">Admin Dashboard</h2>
-    <div class="text-center mb-5">
+    
+    <div class="text-center">
       <p>Welcome, Admin! You are now logged in.</p>
       <button onclick="logoutAdmin()" class="btn btn-danger">Logout</button>
     </div>
 
-    <h4>Customer Bookings</h4>
-    <div class="table-responsive">
-      <table class="table table-bordered" id="bookingsTable">
-        <thead class="table-dark">
-          <tr>
-            <th>Name</th>
-            <th>Date</th>
-            <th>Service</th>
-            <th>Time Slot</th>
-            <th>Action</th> <!-- Added Action column -->
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Booking rows will be inserted here -->
-        </tbody>
-      </table>
+    <!-- Booking Table -->
+    <div id="bookingsSection" class="mt-5">
+      <h4>Customer Bookings</h4>
+      <div class="table-responsive">
+        <table class="table table-bordered" id="bookingsTable">
+          <thead class="table-dark">
+            <tr>
+              <th>Name</th>
+              <th>Date</th>
+              <th>Service</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Booking rows will be inserted here -->
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 
@@ -61,46 +70,99 @@
     <p>&copy; 2025 MotoToy Barbershop. All rights reserved.</p>
   </footer>
 
+  <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="record.js"></script>
 
   <script>
-    // Function to fetch and render bookings dynamically
-    function fetchBookings() {
-      fetch('http://localhost:3000/api/bookings') // Make sure the backend is running on this port
-        .then(response => response.json())
-        .then(bookings => {
-          const bookingsTableBody = document.querySelector('#bookingsTable tbody');
-          bookingsTableBody.innerHTML = ''; // Clear existing rows
+    // Admin login check
+    if (localStorage.getItem("isAdminLoggedIn") !== "true") {
+      window.location.href = "admin.html";
+    }
 
-          bookings.forEach((booking, index) => {
+    function logoutAdmin() {
+      localStorage.removeItem("isAdminLoggedIn");
+      window.location.href = "Homepage.html";
+    }
+
+    // Fetch booking data from backend and display it
+    fetch('http://localhost:3001/appointments')
+      .then(response => response.json())
+      .then(data => {
+        const tableBody = document.querySelector('#bookingsTable tbody');
+        tableBody.innerHTML = ''; // Clear existing rows
+
+        if (data.length === 0) {
+          const row = document.createElement('tr');
+          row.innerHTML = `<td colspan="4" class="text-center">No bookings available</td>`;
+          tableBody.appendChild(row);
+        } else {
+          data.forEach(booking => {
             const row = document.createElement('tr');
             row.innerHTML = `
               <td>${booking.name}</td>
               <td>${booking.date}</td>
               <td>${booking.service}</td>
-              <td>${booking.timeSlot}</td>
-              <td><button class="btn btn-danger" onclick="deleteBooking(${index})">Delete</button></td>
+              <td>
+                <button onclick="deleteBooking('${booking._id}')" class="btn btn-danger btn-sm">Delete</button>
+              </td>
             `;
-            bookingsTableBody.appendChild(row);
+            tableBody.appendChild(row);
           });
-        })
-        .catch(error => {
-          console.error('Error fetching bookings:', error);
+        }
+      })
+      .catch(error => {
+        console.error('Error fetching bookings:', error);
+        const tableBody = document.querySelector('#bookingsTable tbody');
+        tableBody.innerHTML = `<tr><td colspan="4" class="text-center">Failed to load booking data. Please try again later.</td></tr>`;
+      });
+
+    function fetchBookings() {
+      fetch('http://localhost:3001/appointments')
+        .then(response => response.json())
+        .then(data => {
+          const tableBody = document.querySelector('#bookingsTable tbody');
+          tableBody.innerHTML = ''; // Clear existing rows
+          
+          data.forEach(booking => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+              <td>${booking.name}</td>
+              <td>${booking.date}</td>
+              <td>${booking.service}</td>
+              <td>
+                <button onclick="deleteBooking('${booking._id}')" class="btn btn-danger btn-sm">Delete</button>
+              </td>
+            `;
+            tableBody.appendChild(row);
+          });
         });
     }
 
-    // Function to delete a booking (You would need to implement the backend delete functionality)
-    function deleteBooking(index) {
+    function deleteBooking(id) {
       if (confirm('Are you sure you want to delete this booking?')) {
-        // You can add a backend DELETE request here to remove the booking
-        console.log('Booking at index ' + index + ' will be deleted');
-        // For now, we are just logging it.
+        fetch(`http://localhost:3001/appointments/${id}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-admin': 'true' // Assuming the admin flag for verification
+          },
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.message === 'Appointment deleted successfully') {
+            alert('Booking deleted successfully!');
+            fetchBookings(); // Reload the bookings after deletion
+          } else {
+            alert(data.error || 'Failed to delete booking');
+          }
+        })
+        .catch(error => {
+          console.error('Error deleting booking:', error);
+          alert('Failed to delete booking. Please try again later.');
+        });
       }
     }
-
-    // Call fetchBookings() when the page loads to display data
-    document.addEventListener('DOMContentLoaded', fetchBookings);
   </script>
-
 </body>
 </html>
