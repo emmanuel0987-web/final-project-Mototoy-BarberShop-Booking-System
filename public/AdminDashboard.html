@@ -116,27 +116,43 @@
       window.location.href = "Homepage.html";
     }
 
-    // Fetch booking data from backend
-    fetch('https://final-project-mototoy-barbershop-booking.onrender.com/appointments')
+   <script>
+  // Admin login check
+  if (localStorage.getItem("isAdminLoggedIn") !== "true") {
+    window.location.href = "admin.html";
+  }
 
+  function logoutAdmin() {
+    localStorage.removeItem("isAdminLoggedIn");
+    window.location.href = "Homepage.html";
+  }
 
-      .then(response => response.json())
-      .then(data => {
-        const tableBody = document.querySelector('#bookingsTable tbody');
-        tableBody.innerHTML = ''; // Clear existing rows
-        data.forEach(booking => {
-          const row = document.createElement('tr');
-          row.innerHTML = `
-            <td>${booking.name}</td>
-            <td>${booking.date}</td>
-            <td>${booking.service}</td>
-          `;
-          tableBody.appendChild(row);
-        });
-      })
-      .catch(error => {
-        console.error('Error fetching bookings:', error);
+  // Fetch booking data from backend (debug version)
+  fetch('https://final-project-mototoy-barbershop-booking.onrender.com/appointments')
+    .then(response => {
+      console.log('Response:', response); // ✅ Check HTTP status, headers
+      return response.json();
+    })
+    .then(data => {
+      console.log('Data:', data); // ✅ Check if data is as expected
+
+      const tableBody = document.querySelector('#bookingsTable tbody');
+      tableBody.innerHTML = ''; // Clear existing rows
+
+      data.forEach(booking => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${booking.name}</td>
+          <td>${booking.date}</td>
+          <td>${booking.service}</td>
+        `;
+        tableBody.appendChild(row);
       });
-  </script>
+    })
+    .catch(error => {
+      console.error('Error fetching bookings:', error);
+    });
+</script>
+
 </body>
 </html>
