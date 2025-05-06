@@ -11,16 +11,17 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-// ✅ API routes first
+// API routes
 app.use('/appointments', appointmentsRouter);
 
-// ✅ Serve static frontend files after API
+// Serve static frontend files
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ✅ Fallback to Booking.html ONLY after all other routes
+// Fallback route for SPA (Single Page Application)
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'Booking.html'));
 });
