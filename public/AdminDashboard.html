@@ -119,7 +119,8 @@
       });
 
     function fetchBookings() {
-      fetch('http://localhost:3001/appointments')
+      fetch('https://final-project-mototoy-barbershop-booking.onrender.com/appointments')
+
         .then(response => response.json())
         .then(data => {
           const tableBody = document.querySelector('#bookingsTable tbody');
@@ -142,7 +143,7 @@
 
     function deleteBooking(id) {
       if (confirm('Are you sure you want to delete this booking?')) {
-        fetch(`http://localhost:3001/appointments/${id}`, {
+        fetch(`https://final-project-mototoy-barbershop-booking.onrender.com/appointments/${id}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
