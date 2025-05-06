@@ -79,6 +79,7 @@
               <th>Name</th>
               <th>Date</th>
               <th>Service</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -117,7 +118,7 @@
 
         if (data.length === 0) {
           const row = document.createElement('tr');
-          row.innerHTML = `<td colspan="3" class="text-center">No bookings available</td>`;
+          row.innerHTML = `<td colspan="4" class="text-center">No bookings available</td>`;
           tableBody.appendChild(row);
         } else {
           data.forEach(booking => {
@@ -126,6 +127,9 @@
               <td>${booking.name}</td>
               <td>${booking.date}</td>
               <td>${booking.service}</td>
+              <td>
+                <button onclick="deleteBooking('${booking._id}')" class="btn btn-danger btn-sm">Delete</button>
+              </td>
             `;
             tableBody.appendChild(row);
           });
@@ -134,7 +138,7 @@
       .catch(error => {
         console.error('Error fetching bookings:', error);
         const tableBody = document.querySelector('#bookingsTable tbody');
-        tableBody.innerHTML = `<tr><td colspan="3" class="text-center">Failed to load booking data. Please try again later.</td></tr>`;
+        tableBody.innerHTML = `<tr><td colspan="4" class="text-center">Failed to load booking data. Please try again later.</td></tr>`;
       });
 
     // Handle form submission to add new booking
@@ -147,7 +151,7 @@
       const date = document.getElementById('date').value;
       const timeSlot = document.getElementById('timeSlot').value;
 
-      fetch('http://localhost:3001/appointments/create', {
+      fetch('http://localhost:3001/appointments', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -180,12 +184,39 @@
               <td>${booking.name}</td>
               <td>${booking.date}</td>
               <td>${booking.service}</td>
+              <td>
+                <button onclick="deleteBooking('${booking._id}')" class="btn btn-danger btn-sm">Delete</button>
+              </td>
             `;
             tableBody.appendChild(row);
           });
         });
     }
-  </script>
 
+    function deleteBooking(id) {
+      if (confirm('Are you sure you want to delete this booking?')) {
+        fetch(`http://localhost:3001/appointments/${id}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-admin': 'true' // Assuming the admin flag for verification
+          },
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.message === 'Appointment deleted successfully') {
+            alert('Booking deleted successfully!');
+            fetchBookings(); // Reload the bookings after deletion
+          } else {
+            alert(data.error || 'Failed to delete booking');
+          }
+        })
+        .catch(error => {
+          console.error('Error deleting booking:', error);
+          alert('Failed to delete booking. Please try again later.');
+        });
+      }
+    }
+  </script>
 </body>
 </html>
