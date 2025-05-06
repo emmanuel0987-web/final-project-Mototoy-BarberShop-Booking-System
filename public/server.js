@@ -22,7 +22,7 @@ app.use('/appointments', appointmentsRouter);
 
 // Fallback to index.html
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'Homepage.html'));
+  res.sendFile(path.join(__dirname, 'public', 'Booking.html'));
 });
 
 // Set the port
