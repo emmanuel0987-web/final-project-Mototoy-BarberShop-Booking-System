@@ -122,7 +122,8 @@
       };
 
       try {
-        const res = await fetch('http://localhost:3001/appointments', {
+        const res = await fetch('/appointments', {
+
 
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
