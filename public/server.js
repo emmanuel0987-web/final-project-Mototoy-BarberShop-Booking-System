@@ -23,7 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Catch-all for frontend routing
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'AdminDashboard.html'));
+  res.sendFile(path.join(__dirname, 'public', 'admin.html'));
 });
 
 // MongoDB connection and server start
