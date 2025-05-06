@@ -115,7 +115,8 @@
     }
 
     // Fetch booking data from backend
-    fetch('http://localhost:3000/bookings')
+    fetch('http://localhost:3001/appointments')
+)
       .then(response => response.json())
       .then(data => {
         const tableBody = document.querySelector('#bookingsTable tbody');
