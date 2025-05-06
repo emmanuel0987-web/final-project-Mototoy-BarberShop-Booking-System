@@ -15,20 +15,22 @@ const __dirname = path.dirname(__filename);
 app.use(cors());
 app.use(express.json());
 
-// ✅ 1. API Routes FIRST (before static and fallback)
+// API Routes
 app.use('/appointments', appointmentsRouter);
 
-// ✅ 2. Serve static files AFTER routes
+// Static Files
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ✅ 3. Catch-all (for frontend routing) — LAST
+// Fallback for SPA routing
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'Booking.html'));
+  res.sendFile(path.join(__dirname, 'public', 'adminDashboard.html'));
 });
 
-// ✅ 4. Connect DB and Start Server
+// DB Connection & Server Start
 const PORT = process.env.PORT || 3001;
-mongoose.connect(process.env.MONGO_URI)
+const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://mototoyuser:zwgmSgEMGTMgJNvE@cluster0.rasgnzy.mongodb.net/mototoy?authSource=admin&retryWrites=true&w=majority&appName=Cluster0';
+
+mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     app.listen(PORT, () => {
       console.log(`🚀 Server running at http://localhost:${PORT}`);
