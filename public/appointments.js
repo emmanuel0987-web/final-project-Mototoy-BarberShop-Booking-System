@@ -32,6 +32,15 @@ router.get('/', async (req, res) => {
     res.status(500).json({ error: 'Server error', details: err.message });
   }
 });
+// GET /appointments — Get all appointments (used by the admin dashboard)
+router.get('/', async (req, res) => {
+  try {
+    const allAppointments = await Appointment.find().sort({ date: 1 });
+    res.json(allAppointments);
+  } catch (err) {
+    res.status(500).json({ error: 'Server error', details: err.message });
+  }
+});
 
 // Fetch booked slots for a specific date
 router.get('/booked', async (req, res) => {
