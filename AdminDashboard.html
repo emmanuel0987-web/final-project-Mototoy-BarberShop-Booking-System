@@ -45,14 +45,14 @@
       <button onclick="logoutAdmin()" class="btn btn-danger">Logout</button>
     </div>
 
-    <!-- Example Admin Features -->
+    <!-- Admin Features -->
     <div class="row mt-5">
       <div class="col-md-4 mb-3">
         <div class="card text-center">
           <div class="card-body">
             <h5 class="card-title">View Bookings</h5>
             <p class="card-text">Check all customer bookings.</p>
-            <a href="#" class="btn btn-dark">View Bookings</a>
+            <a href="#bookingsSection" class="btn btn-dark">View Bookings</a>
           </div>
         </div>
       </div>
@@ -75,6 +75,25 @@
         </div>
       </div>
     </div>
+
+    <!-- Booking Table -->
+    <div id="bookingsSection" class="mt-5">
+      <h4>Customer Bookings</h4>
+      <div class="table-responsive">
+        <table class="table table-bordered" id="bookingsTable">
+          <thead class="table-dark">
+            <tr>
+              <th>Name</th>
+              <th>Date</th>
+              <th>Service</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Booking rows go here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 
   <footer class="text-center mt-5">
@@ -85,15 +104,35 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
-    // Check if admin is logged in
+    // Admin login check
     if (localStorage.getItem("isAdminLoggedIn") !== "true") {
-      window.location.href = "admin.html"; // Redirect to login if not logged in
+      window.location.href = "admin.html";
     }
 
     function logoutAdmin() {
       localStorage.removeItem("isAdminLoggedIn");
       window.location.href = "Homepage.html";
     }
+
+    // Fetch booking data from backend
+    fetch('http://localhost:3000/bookings')
+      .then(response => response.json())
+      .then(data => {
+        const tableBody = document.querySelector('#bookingsTable tbody');
+        tableBody.innerHTML = ''; // Clear existing rows
+        data.forEach(booking => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${booking.name}</td>
+            <td>${booking.date}</td>
+            <td>${booking.service}</td>
+          `;
+          tableBody.appendChild(row);
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching bookings:', error);
+      });
   </script>
 </body>
 </html>
