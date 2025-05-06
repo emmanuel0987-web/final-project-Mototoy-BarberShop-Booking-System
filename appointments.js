@@ -3,7 +3,7 @@ import Appointment from '../models/Appointment.js';
 
 const router = express.Router();
 
-// ✅ Add this route to support GET /appointments
+// Get all appointments
 router.get('/', async (req, res) => {
   try {
     const appointments = await Appointment.find();
@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Existing POST route to create a booking
+// Book a new appointment
 router.post('/', async (req, res) => {
   const { name, service, date, timeSlot } = req.body;
 
@@ -22,8 +22,8 @@ router.post('/', async (req, res) => {
   }
 
   try {
-    const appt = await Appointment.create({ name, service, date, timeSlot });
-    res.status(201).json(appt);
+    const newAppointment = await Appointment.create({ name, service, date, timeSlot });
+    res.status(201).json(newAppointment);
   } catch (err) {
     if (err.code === 11000) {
       res.status(409).json({ error: 'This time slot is already booked' });
@@ -31,15 +31,6 @@ router.post('/', async (req, res) => {
       res.status(500).json({ error: 'Server error', details: err.message });
     }
   }
-});
-
-// GET booked slots by date
-router.get('/booked', async (req, res) => {
-  const { date } = req.query;
-  if (!date) return res.status(400).json({ error: 'Date is required' });
-
-  const bookedSlots = await Appointment.find({ date });
-  res.json(bookedSlots);
 });
 
 export default router;
