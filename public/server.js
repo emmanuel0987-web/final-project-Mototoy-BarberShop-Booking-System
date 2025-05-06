@@ -15,27 +15,24 @@ const __dirname = path.dirname(__filename);
 app.use(cors());
 app.use(express.json());
 
-// API Routes
+// Serve API route
 app.use('/appointments', appointmentsRouter);
 
-// Static Files
+// Serve static files (frontend)
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Fallback for SPA routing
+// Catch-all for frontend routing
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'adminDashboard.html'));
 });
 
-// DB Connection & Server Start
+// MongoDB connection and server start
 const PORT = process.env.PORT || 3001;
-const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://mototoyuser:zwgmSgEMGTMgJNvE@cluster0.rasgnzy.mongodb.net/mototoy?authSource=admin&retryWrites=true&w=majority&appName=Cluster0';
-
-mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGO_URI)
   .then(() => {
+    console.log('✅ Connected to MongoDB');
     app.listen(PORT, () => {
       console.log(`🚀 Server running at http://localhost:${PORT}`);
     });
   })
-  .catch(err => {
-    console.error('MongoDB connection error:', err);
-  });
+  .catch(err => console.error('❌ MongoDB connection error:', err));
