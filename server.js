@@ -23,7 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // ✅ Optional: fallback to adminDashboard.html
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'Homepage.html'));
+  res.sendFile(path.join(__dirname, 'public', 'Booking.html'));
 });
 
 mongoose.connect(process.env.MONGO_URI)
