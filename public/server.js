@@ -14,13 +14,13 @@ const __dirname = path.dirname(__filename);
 app.use(cors());
 app.use(express.json());
 
-// Serve static frontend files
-app.use(express.static(path.join(__dirname, 'public')));
-
-// API routes
+// ✅ API routes first
 app.use('/appointments', appointmentsRouter);
 
-// Fallback to index.html
+// ✅ Serve static frontend files after API
+app.use(express.static(path.join(__dirname, 'public')));
+
+// ✅ Fallback to Booking.html ONLY after all other routes
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'Booking.html'));
 });
