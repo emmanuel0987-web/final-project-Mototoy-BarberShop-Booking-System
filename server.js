@@ -15,25 +15,24 @@ const __dirname = path.dirname(__filename);
 app.use(cors());
 app.use(express.json());
 
-// ✅ 1. API Routes FIRST (before static and fallback)
+// Serve API route
 app.use('/appointments', appointmentsRouter);
 
-// ✅ 2. Serve static files AFTER routes
+// Serve static files (frontend)
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ✅ 3. Catch-all (for frontend routing) — LAST
+// Catch-all for frontend routing
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'Booking.html'));
+  res.sendFile(path.join(__dirname, 'public', 'adminDashboard.html'));
 });
 
-// ✅ 4. Connect DB and Start Server
+// MongoDB connection and server start
 const PORT = process.env.PORT || 3001;
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
+    console.log('✅ Connected to MongoDB');
     app.listen(PORT, () => {
       console.log(`🚀 Server running at http://localhost:${PORT}`);
     });
   })
-  .catch(err => {
-    console.error('MongoDB connection error:', err);
-  });
+  .catch(err => console.error('❌ MongoDB connection error:', err));
