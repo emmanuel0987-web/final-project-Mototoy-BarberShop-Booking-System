@@ -3,7 +3,17 @@ import Appointment from '../models/Appointment.js';
 
 const router = express.Router();
 
-// Create new appointment
+// ✅ Add this route to support GET /appointments
+router.get('/', async (req, res) => {
+  try {
+    const appointments = await Appointment.find();
+    res.json(appointments);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch appointments', details: error.message });
+  }
+});
+
+// Existing POST route to create a booking
 router.post('/', async (req, res) => {
   const { name, service, date, timeSlot } = req.body;
 
@@ -23,36 +33,13 @@ router.post('/', async (req, res) => {
   }
 });
 
-// ✅ Fetch all appointments
-router.get('/', async (req, res) => {
-  try {
-    const allAppointments = await Appointment.find().sort({ date: 1 });
-    res.json(allAppointments);
-  } catch (err) {
-    res.status(500).json({ error: 'Server error', details: err.message });
-  }
-});
-// GET /appointments — Get all appointments (used by the admin dashboard)
-router.get('/', async (req, res) => {
-  try {
-    const allAppointments = await Appointment.find().sort({ date: 1 });
-    res.json(allAppointments);
-  } catch (err) {
-    res.status(500).json({ error: 'Server error', details: err.message });
-  }
-});
-
-// Fetch booked slots for a specific date
+// GET booked slots by date
 router.get('/booked', async (req, res) => {
   const { date } = req.query;
   if (!date) return res.status(400).json({ error: 'Date is required' });
 
-  try {
-    const bookedSlots = await Appointment.find({ date });
-    res.json(bookedSlots);
-  } catch (err) {
-    res.status(500).json({ error: 'Server error', details: err.message });
-  }
+  const bookedSlots = await Appointment.find({ date });
+  res.json(bookedSlots);
 });
 
 export default router;
