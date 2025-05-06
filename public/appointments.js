@@ -3,7 +3,7 @@ import Appointment from '../models/Appointment.js';
 
 const router = express.Router();
 
-// ✅ Add this route to support GET /appointments
+// GET all appointments
 router.get('/', async (req, res) => {
   try {
     const appointments = await Appointment.find();
@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Existing POST route to create a booking
+// POST a new appointment
 router.post('/', async (req, res) => {
   const { name, service, date, timeSlot } = req.body;
 
@@ -33,7 +33,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-// ✅ Route to get all booked slots by date
+// GET booked slots by date
 router.get('/booked', async (req, res) => {
   const { date } = req.query;
   if (!date) return res.status(400).json({ error: 'Date is required' });
@@ -42,12 +42,11 @@ router.get('/booked', async (req, res) => {
   res.json(bookedSlots);
 });
 
-// ✅ Route to delete a booking (only accessible by admin)
+// DELETE appointment (admin only)
 router.delete('/:id', async (req, res) => {
   const { id } = req.params;
 
-  // Check if the user is an admin (this can be improved with JWT or other auth methods)
-  const isAdmin = req.headers['x-admin'] === 'true'; // Simple header check for admin flag
+  const isAdmin = req.headers['x-admin'] === 'true';
   if (!isAdmin) {
     return res.status(403).json({ error: 'Permission denied. Admin access required.' });
   }
