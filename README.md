@@ -7,9 +7,9 @@ Easily book your cut—anytime, anywhere—and manage appointments with our inno
 Mototoy Barbershop Booking System streamlines appointment scheduling, reduces wait times, and enhances the overall customer experience. This platform allows users to easily book, manage, and cancel appointments, while providing barbershops with efficient scheduling and customer management tools.
 
 ## 🧑‍💻 Planned Languages and Tools
-- **Frontend**: HTML, CSS, JavaScript
-- **Backend**: MONGODB, EXPRESS MONGOOSE, NODE.JS
-- **Database**: MONGODB, EXPRESS MONGOOSE, NODE.JS
+- **Frontend**: HTML, CSS, JavaScript, BOOTSTRAP
+- **Backend**: MONGODB, EXPRESS MONGOOSE, BOOTSTRAP
+- **Database**: MONGODB, MONGODB ATLAS 
 - **Version Control**: Git & GitHub
 
 ## 🌟 Features
@@ -33,13 +33,13 @@ Mototoy Barbershop Booking System streamlines appointment scheduling, reduces wa
 
 | Phase                         | Progress |
 |-------------------------------|----------|
-| Planning and System Design    | 100%     |
-| UI/UX Wireframing             | 20%      |
-| Frontend Development          | 80%      |
-| Backend Development           | 20%      |
-| Database Design and Integration | 70%    |
-| Testing and Debugging         | 20%      |
-| Final Review and Deployment   | 0%       |
+| Planning and System Design    |   100%   |
+| UI/UX Wireframing             |   100%   |
+| Frontend Development          |   100%   |
+| Backend Development           |   100%   |
+| Database Design and Integration|  100%   |
+| Testing and Debugging         |   100%   |
+| Final Review and Deployment   |   100%   |
 
 > Progress will be updated regularly until the project reaches 100% completion.
 
