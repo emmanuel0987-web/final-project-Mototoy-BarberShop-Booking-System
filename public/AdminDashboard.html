@@ -107,7 +107,6 @@
               <td>${booking.timeSlot}</td>
               <td>${booking.service}</td>
               <td>
-                <button onclick="editBooking('${booking._id}', '${booking.service}')" class="btn btn-primary btn-sm me-2">Edit</button>
                 <button onclick="deleteBooking('${booking._id}')" class="btn btn-danger btn-sm">Delete</button>
               </td>
             `;
@@ -168,72 +167,6 @@
         });
       }
     }
-    <!-- Edit Service Modal -->
-<div class="modal fade" id="editServiceModal" tabindex="-1" aria-labelledby="editServiceModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <form id="editServiceForm">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editServiceModalLabel">Edit Service</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <input type="hidden" id="editBookingId" />
-          <div class="mb-3">
-            <label for="editService" class="form-label">Service</label>
-            <input type="text" class="form-control" id="editService" required />
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-success">Save Changes</button>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-    let currentEditId = null;
-
-// Open modal and pre-fill current service
-function editBooking(id, currentService) {
-  currentEditId = id;
-  document.getElementById('editBookingId').value = id;
-  document.getElementById('editService').value = currentService;
-  const editModal = new bootstrap.Modal(document.getElementById('editServiceModal'));
-  editModal.show();
-}
-
-// Handle form submission
-document.getElementById('editServiceForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  const updatedService = document.getElementById('editService').value;
-
-  fetch(`https://final-project-mototoy-barbershop-booking.onrender.com/appointments/${currentEditId}`, {
-    method: 'PUT', // or 'PATCH' depending on your backend
-    headers: {
-      'Content-Type': 'application/json',
-      'x-admin': 'true'
-    },
-    body: JSON.stringify({ service: updatedService })
-  })
-  .then(response => response.json())
-  .then(data => {
-    if (data.message === 'Appointment updated successfully') {
-      alert('Service updated successfully!');
-      fetchBookings(); // Refresh the table
-      bootstrap.Modal.getInstance(document.getElementById('editServiceModal')).hide();
-    } else {
-      alert(data.error || 'Failed to update service');
-    }
-  })
-  .catch(error => {
-    console.error('Error updating booking:', error);
-    alert('Failed to update booking.');
-  });
-});
-
-
   </script>
 </body>
 </html>
