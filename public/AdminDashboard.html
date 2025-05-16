@@ -193,6 +193,47 @@
   </div>
 </div>
 
+    let currentEditId = null;
+
+// Open modal and pre-fill current service
+function editBooking(id, currentService) {
+  currentEditId = id;
+  document.getElementById('editBookingId').value = id;
+  document.getElementById('editService').value = currentService;
+  const editModal = new bootstrap.Modal(document.getElementById('editServiceModal'));
+  editModal.show();
+}
+
+// Handle form submission
+document.getElementById('editServiceForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const updatedService = document.getElementById('editService').value;
+
+  fetch(`https://final-project-mototoy-barbershop-booking.onrender.com/appointments/${currentEditId}`, {
+    method: 'PUT', // or 'PATCH' depending on your backend
+    headers: {
+      'Content-Type': 'application/json',
+      'x-admin': 'true'
+    },
+    body: JSON.stringify({ service: updatedService })
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.message === 'Appointment updated successfully') {
+      alert('Service updated successfully!');
+      fetchBookings(); // Refresh the table
+      bootstrap.Modal.getInstance(document.getElementById('editServiceModal')).hide();
+    } else {
+      alert(data.error || 'Failed to update service');
+    }
+  })
+  .catch(error => {
+    console.error('Error updating booking:', error);
+    alert('Failed to update booking.');
+  });
+});
+
+
   </script>
 </body>
 </html>
