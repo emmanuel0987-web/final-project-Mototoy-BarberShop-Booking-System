@@ -168,6 +168,31 @@
         });
       }
     }
+    <!-- Edit Service Modal -->
+<div class="modal fade" id="editServiceModal" tabindex="-1" aria-labelledby="editServiceModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form id="editServiceForm">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editServiceModalLabel">Edit Service</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <input type="hidden" id="editBookingId" />
+          <div class="mb-3">
+            <label for="editService" class="form-label">Service</label>
+            <input type="text" class="form-control" id="editService" required />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success">Save Changes</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
   </script>
 </body>
 </html>
